@@ -105,9 +105,6 @@ Task/
 │   ├── package.json
 │   ├── .env.example
 │   └── README.md
-│
-├── README.md                      # Full documentation
-├── QUICKSTART.md                  # Get started in 5 minutes
 └── DEPLOYMENT.md                  # Deploy to production
 ```
 
@@ -120,7 +117,7 @@ Task/
 ```bash
 cd backend
 cat > .env << EOF
-PORT=5000
+PORT=5001
 MONGODB_URI=your_connection_string
 JWT_SECRET=change_me_to_random
 EOF
@@ -135,18 +132,6 @@ npm run dev
 ```
 
 Open: **http://localhost:5173**
-
----
-
-## 📊 File Count
-
-| Component     | Files        |
-| ------------- | ------------ |
-| Backend       | 10 files     |
-| Frontend      | 13 files     |
-| Documentation | 3 files      |
-| Config files  | 6 files      |
-| **Total**     | **32 files** |
 
 ---
 
@@ -289,33 +274,21 @@ DELETE /:id           → Delete task (admin)
 - [x] Success notifications
 - [x] Smooth transitions
 
----
-
-## 📚 Documentation Provided
-
-1. **README.md** - Complete project overview, setup, deployment
-2. **QUICKSTART.md** - Get running in 5 minutes with examples
-3. **DEPLOYMENT.md** - Deploy to Heroku, Vercel, Railway, etc.
-4. **backend/README.md** - Backend-specific setup
-5. **frontend/README.md** - Frontend-specific setup
-
----
-
 ## 🧪 Testing
 
 ### Test Admin Account
 
 ```
-Email: admin@test.com
-Password: admin123
+Email: kashish84396@gmail.com
+Password: 12345678
 Role: admin
 ```
 
 ### Test User Account
 
 ```
-Email: user@test.com
-Password: user123
+Email: rajsr3927@gmail.com
+Password: Ashish1234
 Role: user
 ```
 
@@ -352,10 +325,7 @@ Role: user
 
 ### One-Click Deploy To:
 
-- ✅ Heroku
-- ✅ Railway.app
 - ✅ Render
-- ✅ Vercel
 - ✅ Netlify
 
 **See DEPLOYMENT.md for detailed instructions**
