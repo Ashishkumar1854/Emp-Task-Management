@@ -2,78 +2,8 @@
 
 This guide covers deploying the Task Management Dashboard to various platforms.
 
----
 
-## Backend Deployment
-
-### Option 1: Heroku (Easiest)
-
-#### Prerequisites
-
-- Heroku account (free tier available)
-- Git repository
-- Heroku CLI
-
-#### Steps
-
-1. **Login to Heroku:**
-
-```bash
-heroku login
-```
-
-2. **Create Heroku app:**
-
-```bash
-cd backend
-heroku create your-app-name
-```
-
-3. **Set environment variables:**
-
-```bash
-heroku config:set MONGODB_URI="mongodb+srv://username:password@cluster.mongodb.net/taskdb"
-heroku config:set JWT_SECRET="your_random_secret_key_12345"
-```
-
-4. **Deploy:**
-
-```bash
-git push heroku main
-```
-
-5. **View logs:**
-
-```bash
-heroku logs --tail
-```
-
-Your backend is now live at: `https://your-app-name.herokuapp.com`
-
----
-
-### Option 2: Railway.app
-
-#### Steps
-
-1. Go to [railway.app](https://railway.app)
-2. Click "Create Project"
-3. Select "Deploy from GitHub"
-4. Connect your GitHub account
-5. Select backend repository
-6. Add these variables in Environment:
-   ```
-   MONGODB_URI=mongodb+srv://...
-   JWT_SECRET=your_secret
-   PORT=5000
-   ```
-7. Deploy!
-
-**Backend URL:** `https://your-app-name.up.railway.app`
-
----
-
-### Option 3: Render
+### : Render
 
 #### Steps
 
@@ -97,47 +27,7 @@ Your backend is now live at: `https://your-app-name.herokuapp.com`
 
 ## Frontend Deployment
 
-### Option 1: Vercel (Recommended)
-
-#### Steps
-
-1. **Install Vercel CLI:**
-
-```bash
-npm i -g vercel
-```
-
-2. **Deploy from project folder:**
-
-```bash
-cd frontend
-vercel
-```
-
-3. **Follow prompts:**
-   - Link to existing project? `No`
-   - Deploy to account
-   - Select project name
-   - Build settings: `vite build`
-
-4. **Set environment variables:**
-
-```bash
-vercel env add VITE_API_URL
-# Enter: https://your-backend-url/api
-```
-
-5. **Redeploy with env vars:**
-
-```bash
-vercel --prod
-```
-
-**Frontend URL:** `https://your-project-name.vercel.app`
-
----
-
-### Option 2: Netlify
+### : Netlify
 
 #### Steps
 
@@ -162,45 +52,10 @@ netlify deploy --prod
 
 5. **Redeploy**
 
----
-
-### Option 3: GitHub Pages
-
-**Note:** GitHub Pages is static only. Use for frontend without custom backend.
-
-1. **Update vite.config.js:**
-
-```javascript
-export default {
-  base: "/task-dashboard/",
-  // ... rest of config
-};
-```
-
-2. **Add GitHub token:**
-
-```bash
-export GITHUB_TOKEN=your_token
-```
-
-3. **Deploy to GitHub Pages:**
-
-```bash
-npm run build
-# Commit and push to gh-pages branch
-```
-
----
 
 ## Full URL Configuration
 
 After deploying both services, configure frontend to use backend:
-
-### Vercel Environment Variables
-
-```
-VITE_API_URL=https://your-backend.herokuapp.com/api
-```
 
 ### Netlify Environment Variables
 
@@ -209,15 +64,6 @@ VITE_API_URL=https://your-backend.railway.app/api
 ```
 
 ### Build & Deploy
-
-```bash
-# Frontend - rebuild and redeploy
-vercel --prod
-# or
-netlify deploy --prod
-```
-
----
 
 ## Database - MongoDB Atlas
 
@@ -246,14 +92,6 @@ netlify deploy --prod
    - Copy connection string
    - Replace `<username>` and `<password>`
 
-**Connection String Format:**
-
-```
-mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/taskdb?retryWrites=true&w=majority
-```
-
----
-
 ## Performance Optimizations
 
 ### Frontend
@@ -273,116 +111,6 @@ npm install -g webpack-bundle-analyzer
 - Enable gzip compression
 - Monitor performance in production
 
----
-
-## Monitoring & Logging
-
-### Heroku
-
-```bash
-heroku logs --tail
-heroku logs -n 50  # Last 50 lines
-```
-
-### Railway
-
-- Dashboard shows real-time logs
-- Click "Logs" tab to view
-
-### Vercel
-
-- Deployments → Select deployment → Logs
-
----
-
-## SSL/HTTPS
-
-**Automatically enabled on:**
-
-- ✅ Heroku (\*.herokuapp.com)
-- ✅ Railway (\*.up.railway.app)
-- ✅ Render (\*.onrender.com)
-- ✅ Vercel (\*.vercel.app)
-- ✅ Netlify (\*.netlify.app)
-
----
-
-## Cost Estimates (Monthly)
-
-| Service                  | Cost         |
-| ------------------------ | ------------ |
-| Backend (Heroku Free)    | $0 (limited) |
-| Backend (Railway)        | $5-20        |
-| Frontend (Vercel)        | $0-20        |
-| Database (MongoDB Atlas) | $0-50        |
-| **Total**                | **$5-90**    |
-
----
-
-## Troubleshooting
-
-### Backend won't start
-
-```
-Check logs: heroku logs --tail
-Common issues:
-- MongoDB connection string wrong
-- Missing environment variables
-- Port not set to process.env.PORT
-```
-
-### Frontend shows blank
-
-```
-Check browser console for errors
-Likely causes:
-- API URL incorrect in .env
-- Backend not running
-- CORS issues
-```
-
-### MongoDB connection timeout
-
-```
-Whitelist your IP in MongoDB Atlas
-Network Access → IP Whitelist
-```
-
----
-
-## CI/CD Pipeline (GitHub Actions)
-
-**Create `.github/workflows/deploy.yml`:**
-
-```yaml
-name: Deploy
-
-on:
-  push:
-    branches: [main]
-
-jobs:
-  deploy-backend:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "16"
-      - run: cd backend && npm install && npm test
-      - run: git push heroku main
-
-  deploy-frontend:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-      - run: cd frontend && npm install && npm run build
-      - run: vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
-```
-
----
-
 ## Production Checklist
 
 - [ ] Environment variables set correctly
@@ -398,14 +126,5 @@ jobs:
 
 ---
 
-## Support Links
-
-- [Heroku Docs](https://devcenter.heroku.com)
-- [Railway Docs](https://docs.railway.app)
-- [Vercel Docs](https://vercel.com/docs)
-- [MongoDB Atlas Help](https://docs.mongodb.com/manual)
-- [Express Deployment](https://expressjs.com/en/advanced/best-practice-deployment.html)
-
----
 
 **Your app is now ready for production! 🚀**
