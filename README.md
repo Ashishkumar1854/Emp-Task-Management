@@ -131,7 +131,7 @@ cp .env.example .env
 4. **Update `.env` with your credentials:**
 
 ```env
-PORT=5000
+PORT=5001
 MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/taskdb?retryWrites=true&w=majority
 JWT_SECRET=your_super_secret_jwt_key_change_this
 ```
@@ -146,7 +146,7 @@ npm run dev
 npm start
 ```
 
-Server runs on `http://localhost:5000`
+Server runs on `http://localhost:5001`
 
 ---
 
@@ -173,7 +173,7 @@ cp .env.example .env
 4. **Update `.env` (if backend is on different host):**
 
 ```env
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=http://localhost:5001/api
 ```
 
 5. **Start frontend dev server:**
@@ -181,9 +181,6 @@ VITE_API_URL=http://localhost:5000/api
 ```bash
 npm run dev
 ```
-
-App runs on `http://localhost:5173`
-
 ---
 
 ## 🔐 Authentication Flow
@@ -209,20 +206,6 @@ FORGOT PASSWORD FLOW:
 
 After first signup, you can test different roles:
 
-**Admin Account:**
-
-- Email: `admin@test.com`
-- Password: `admin123`
-- Role: `admin`
-
-**User Account:**
-
-- Email: `user@test.com`
-- Password: `user123`
-- Role: `user`
-
----
-
 ## 📡 API Endpoints
 
 ### Authentication
@@ -230,20 +213,20 @@ After first signup, you can test different roles:
 ```http
 POST /api/auth/register
 {
-  "name": "John Doe",
-  "email": "john@example.com",
-  "password": "securepass123"
+  "name": "Ashish",
+  "email": "ashish@example.com",
+  "password": "pass123"
 }
 
 POST /api/auth/login
 {
-  "email": "john@example.com",
-  "password": "securepass123"
+  "email": "raj@example.com",
+  "password": "pass1234"
 }
 
 POST /api/auth/forgot-password
 {
-  "email": "john@example.com"
+  "email": "@example.com"
 }
 Returns: { resetToken, resetLink }
 
@@ -374,22 +357,6 @@ git init
 git add .
 git commit -m "Initial commit"
 ```
-
-2. **Deploy to Heroku:**
-
-```bash
-heroku login
-heroku create your-app-name
-git push heroku main
-```
-
-3. **Set environment variables:**
-
-```bash
-heroku config:set MONGODB_URI=your_connection_string
-heroku config:set JWT_SECRET=your_secret
-```
-
 ### Deploy Frontend (Vercel, Netlify, GitHub Pages)
 
 1. **Build frontend:**
@@ -397,21 +364,6 @@ heroku config:set JWT_SECRET=your_secret
 ```bash
 npm run build
 ```
-
-2. **Deploy to Vercel:**
-
-```bash
-npm install -g vercel
-vercel
-```
-
-3. **Update `.env` with backend URL:**
-
-```env
-VITE_API_URL=https://your-backend.herokuapp.com/api
-```
-
----
 
 ## 📝 Environment Variables
 
